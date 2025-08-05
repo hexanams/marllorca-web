@@ -15,10 +15,10 @@ const PropertyFirstSection = () => {
               Your Partner in Premium Real Estate Sales
             </h1>
             <p className="mt-[16px] font-helvetica font-[300] text-[14px] leading-[20px] lg:text-[18px] lg:leading-[27px] text-white-500">
-              Whether you're planning to sell a villa, apartment, or a unique
-              property, Mallorca Web offers personalized service and market
-              expertise to ensure a seamless selling experience—from your first
-              consultation to the final signature.
+              Whether you&apos;re planning to sell a villa, apartment, or a
+              unique property, Mallorca Web offers personalized service and
+              market expertise to ensure a seamless selling experience—from your
+              first consultation to the final signature.
             </p>
             <button className="mt-[16px] bg-transparent border-[1px] border-gold-500 font-helvetica font-[300] text-[14px] leading-[20px] lg:text-[18px] lg:leading-[27px] text-gold-500 text-center w-full max-w-[267px] py-[10px] rounded-[4px] ">
               Get in touch

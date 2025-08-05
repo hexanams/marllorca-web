@@ -16,10 +16,10 @@ const ContactFirstSection = () => {
               guide to property success in Mallorca.
             </h1>
             <p className="mt-[16px] font-helvetica font-[300] text-[14px] leading-[20px] lg:text-[18px] lg:leading-[27px] text-white-500">
-              Whether you're thinking of selling your home, buying your dream
-              villa, or just want advice about the market, our team of experts
-              is ready to assist you. Every message is important to us, and
-              we&apos;ll respond promptly and personally.
+              Whether you&apos;re thinking of selling your home, buying your
+              dream villa, or just want advice about the market, our team of
+              experts is ready to assist you. Every message is important to us,
+              and we&apos;ll respond promptly and personally.
             </p>
           </div>
         </div>

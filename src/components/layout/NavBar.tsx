@@ -1,8 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
-import MallorcaSvg from "../Assests/Svg/MallorcaSvg";
+import { useEffect, useRef, useState } from "react";
 import LogoSvg from "../Assests/Svg/LogoSvg";
 
 const NavBar = () => {
