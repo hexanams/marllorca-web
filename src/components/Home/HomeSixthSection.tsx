@@ -1,35 +1,18 @@
-"use client";
-import dynamic from "next/dynamic";
-import { useState, useEffect } from "react";
-
-// Dynamic import of next/image
-const Image = dynamic(() => import("next/image"), {
-  loading: () => <div className="w-full h-full bg-gray-200 animate-pulse"></div>
-});
+import Image from "next/image";
 
 const HomeSixthSection = () => {
-  const [isClient, setIsClient] = useState(false);
-  
-  // Only render the image client-side to avoid including it in the server bundle
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
   return (
     <div className="w-full bg-white-50 overflow-hidden relative">
       <div className="z-[1] h-[629px] w-full absolute top-0 left-0 right-0 bottom-0">
-        {isClient ? (
-          <Image
-            src="/images/backThree.jpg"
-            alt="background"
-            width={1000}
-            height={1000}
-            className="w-full h-full object-cover object-top z-[1]"
-            priority={false}
-            loading="lazy"
-          />
-        ) : (
-          <div className="w-full h-full bg-black-500/30"></div>
-        )}
+        <Image
+          src="/images/backThree.jpg"
+          alt="background"
+          width={1000}
+          height={1000}
+          objectFit="cover"
+          objectPosition="top center"
+          className="w-full h-full object-cover z-[1]"
+        />
       </div>
       <div className="z-[2] h-[629px] w-full px-4 bg-black-500/50 overflow-hidden relative  ">
         <div className="container h-[629px] mx-auto relative z-[2]">

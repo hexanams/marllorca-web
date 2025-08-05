@@ -1,62 +1,48 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import dynamic from "next/dynamic";
-// Import only the loader function, not the actual data
-import { getCountryCodes } from "../../utils/countryCodesLoader";
-
-// Dynamically import SVG components with loading fallbacks
-const EmailSvg = dynamic(() => import("../Assests/Svg/EmailSvg"), {
-  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
-  ssr: false
-});
-const FacebookSvg = dynamic(() => import("../Assests/Svg/FacebookSvg"), {
-  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
-  ssr: false
-});
-const InstagramSvg = dynamic(() => import("../Assests/Svg/InstagramSvg"), {
-  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
-  ssr: false
-});
-const LocationSvg = dynamic(() => import("../Assests/Svg/LocationSvg"), {
-  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
-  ssr: false
-});
-const PhoneSvg = dynamic(() => import("../Assests/Svg/PhoneSvg"), {
-  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
-  ssr: false
-});
-const TwitterSvg = dynamic(() => import("../Assests/Svg/TwitterSvg"), {
-  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
-  ssr: false
-});
-const ContactCard = dynamic(() => import("../atoms/ContactCard"), {
-  loading: () => <div className="w-full h-20 bg-gray-100 animate-pulse rounded-md"></div>
-});
+import { countryCodes } from "../../utils/constants";
+import EmailSvg from "../Assests/Svg/EmailSvg";
+import PhoneSvg from "../Assests/Svg/PhoneSvg";
+import FacebookSvg from "../Assests/Svg/FacebookSvg";
+import InstagramSvg from "../Assests/Svg/InstagramSvg";
+import LocationSvg from "../Assests/Svg/LocationSvg";
+import TwitterSvg from "../Assests/Svg/TwitterSvg";
+import ContactCard from "../atoms/ContactCard";
 
 const ContactSecondSection = () => {
   const [showCountryCodes, setShowCountryCodes] = useState(false);
   const [showInquiryTypes, setShowInquiryTypes] = useState(false);
-  const [countryCodes, setCountryCodes] = useState<Array<{code: string, dialCode: string, flag: string}>>([]);
-  const [selectedCountry, setSelectedCountry] = useState<{code: string, dialCode: string, flag: string}>({ code: "ES", dialCode: "+34", flag: "🇪🇸" }); // Default to Spain
+  const [selectedCountry, setSelectedCountry] = useState({
+    code: "ES",
+    dialCode: "+34",
+    flag: "🇪🇸",
+  }); // Default to Spain
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const countryCodeRef = useRef<HTMLDivElement>(null);
   const inquiryTypeRef = useRef<HTMLDivElement>(null);
 
-  // Load country codes dynamically
+  // Handle outside clicks for dropdowns
   useEffect(() => {
-    const loadCountryCodes = async () => {
-      const codes = await getCountryCodes();
-      setCountryCodes(codes);
-      // Set selected country after codes are loaded
-      if (codes.length > 0) {
-        // Find Spain (ES) as default or use first item
-        const spain = codes.find(country => country.code === "ES");
-        setSelectedCountry(spain || codes[0]);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        countryCodeRef.current &&
+        !countryCodeRef.current.contains(event.target as Node)
+      ) {
+        setShowCountryCodes(false);
+      }
+      if (
+        inquiryTypeRef.current &&
+        !inquiryTypeRef.current.contains(event.target as Node)
+      ) {
+        setShowInquiryTypes(false);
       }
     };
-    
-    loadCountryCodes();
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   // Handle clicks outside the dropdowns
