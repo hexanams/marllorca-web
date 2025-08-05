@@ -7,12 +7,13 @@ const ContactFirstSection = () => {
       <div className="container h-full mx-auto px-4 relative">
         <div className="h-full w-full flex flex-row items-center justify-center">
           {/* <ContactBackSvg className="z-[1] absolute left-[-90%] lg:left-[0px] h-full" /> */}
-          <div className="z-[1] w-[50%] h-full absolute left-[-90%] lg:left-[0px]">
+          <div className="z-[1] w-[45%] h-full absolute left-[-90%] lg:left-[0px]">
             <Image
-              src="/images/ContactBack.png"
+              src="/ContactBack.svg"
               alt="contact"
               width={1000}
               height={1000}
+              priority={true}
               objectFit="cover"
               objectPosition="top center"
               className="  h-full object-cover"

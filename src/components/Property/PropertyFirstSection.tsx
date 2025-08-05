@@ -1,11 +1,22 @@
-import PropertyBackSvg from "../Assests/Svg/PropertyBackSvg";
+import Image from "next/image";
 
 const PropertyFirstSection = () => {
   return (
     <div className="h-full max-h-screen w-full bg-[#fff] overflow-hidden bg-black-500">
       <div className="container h-full mx-auto px-4 relative">
         <div className="h-full w-full flex flex-row items-center justify-center">
-          <PropertyBackSvg className="z-[1] absolute left-[-100%] lg:left-[0px] h-full" />
+          <div className="z-[1] w-[45%] h-full absolute left-[-90%] lg:left-[0px]">
+            <Image
+              src="/PropertyBack.svg"
+              alt="contact"
+              width={1000}
+              height={1000}
+              priority={true}
+              objectFit="cover"
+              objectPosition="top center"
+              className="  h-full object-cover"
+            />
+          </div>
           <div className="w-[20%] lg:w-[50%] h-full"></div>
           <div className="z-[2] relative w-[80%] lg:w-[50%] h-full flex flex-col items-start justify-center">
             <p className="font-helvetica font-[300] text-[14px] leading-[20px] lg:text-[18px] lg:leading-[27px] text-white-500">

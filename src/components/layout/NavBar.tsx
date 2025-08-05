@@ -11,7 +11,10 @@ const NavBar = () => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Check if current page has dark background (contact or history)
-  const isDarkPage = pathname === "/contact" || pathname === "/history";
+  const isDarkPage =
+    pathname === "/contact" ||
+    pathname === "/history" ||
+    pathname === "/sell-your-property";
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -124,6 +127,18 @@ const NavBar = () => {
               HISTORY
             </Link>
             <Link
+              href="/sell-your-property"
+              className={`font-helvetica font-[300] text-[16px] ${
+                pathname === "/sell-your-property"
+                  ? "text-gold-500"
+                  : isDarkPage && !scrolled
+                  ? "text-white-500"
+                  : "text-gold-900"
+              } hover:text-gold-500 transition-colors duration-300`}
+            >
+              SELL YOUR PROPERTY
+            </Link>
+            <Link
               href="/contact"
               className={`font-helvetica font-[300] text-[16px] ${
                 pathname === "/contact"
@@ -209,6 +224,17 @@ const NavBar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   HISTORY
+                </Link>
+                <Link
+                  href="/sell-your-property"
+                  className={`font-helvetica font-[300] text-[20px] ${
+                    pathname === "/sell-your-property"
+                      ? "text-gold-500"
+                      : "text-black-500"
+                  } transition-all duration-300 transform hover:scale-105`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  SELL YOUR PROPERTY
                 </Link>
                 <Link
                   href="/contact"

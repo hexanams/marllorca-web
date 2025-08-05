@@ -1,11 +1,22 @@
-import HistoryBackThree from "../Assests/Svg/HistoryBackThree";
+import Image from "next/image";
 
 const HistoryFifthSection = () => {
   return (
     <div className="h-full w-full">
       <div className="container h-full mx-auto px-4">
         <div className="h-full w-full flex flex-row items-center justify-center relative">
-          <HistoryBackThree className="max-lg:hidden z-[1] absolute top-[0px] right-[0px] h-full" />
+          <div className="z-[1] w-[45%] h-[80%] absolute right-[-90%] lg:right-[0px]">
+            <Image
+              src="/HistoryBackThree.svg"
+              alt="contact"
+              width={1000}
+              height={1000}
+              priority={true}
+              objectFit="cover"
+              objectPosition="top center"
+              className="  h-full object-cover"
+            />
+          </div>
           <div className="z-[2] relative w-[80%] lg:w-[50%] h-full flex flex-col items-start justify-center">
             <p className="font-satoshi font-[300] text-[36px] leading-[54px] lg:text-[56px] lg:leading-[84px] text-black-500">
               Let&apos;s Help You Find Home
