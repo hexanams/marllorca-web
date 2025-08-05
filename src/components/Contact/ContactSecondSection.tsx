@@ -1,20 +1,63 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { countryCodes } from "../../utils/constants";
-import EmailSvg from "../Assests/Svg/EmailSvg";
-import FacebookSvg from "../Assests/Svg/FacebookSvg";
-import InstagramSvg from "../Assests/Svg/InstagramSvg";
-import LocationSvg from "../Assests/Svg/LocationSvg";
-import PhoneSvg from "../Assests/Svg/PhoneSvg";
-import TwitterSvg from "../Assests/Svg/TwitterSvg";
-import ContactCard from "../atoms/ContactCard";
+import dynamic from "next/dynamic";
+// Import only the loader function, not the actual data
+import { getCountryCodes } from "../../utils/countryCodesLoader";
+
+// Dynamically import SVG components with loading fallbacks
+const EmailSvg = dynamic(() => import("../Assests/Svg/EmailSvg"), {
+  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
+  ssr: false
+});
+const FacebookSvg = dynamic(() => import("../Assests/Svg/FacebookSvg"), {
+  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
+  ssr: false
+});
+const InstagramSvg = dynamic(() => import("../Assests/Svg/InstagramSvg"), {
+  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
+  ssr: false
+});
+const LocationSvg = dynamic(() => import("../Assests/Svg/LocationSvg"), {
+  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
+  ssr: false
+});
+const PhoneSvg = dynamic(() => import("../Assests/Svg/PhoneSvg"), {
+  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
+  ssr: false
+});
+const TwitterSvg = dynamic(() => import("../Assests/Svg/TwitterSvg"), {
+  loading: () => <div className="w-6 h-6 bg-gray-200 animate-pulse rounded-full"></div>,
+  ssr: false
+});
+const ContactCard = dynamic(() => import("../atoms/ContactCard"), {
+  loading: () => <div className="w-full h-20 bg-gray-100 animate-pulse rounded-md"></div>
+});
 
 const ContactSecondSection = () => {
   const [showCountryCodes, setShowCountryCodes] = useState(false);
   const [showInquiryTypes, setShowInquiryTypes] = useState(false);
+  const [countryCodes, setCountryCodes] = useState<Array<{code: string, dialCode: string, flag: string}>>([]);
+  const [selectedCountry, setSelectedCountry] = useState<{code: string, dialCode: string, flag: string}>({ code: "ES", dialCode: "+34", flag: "🇪🇸" }); // Default to Spain
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const countryCodeRef = useRef<HTMLDivElement>(null);
   const inquiryTypeRef = useRef<HTMLDivElement>(null);
+
+  // Load country codes dynamically
+  useEffect(() => {
+    const loadCountryCodes = async () => {
+      const codes = await getCountryCodes();
+      setCountryCodes(codes);
+      // Set selected country after codes are loaded
+      if (codes.length > 0) {
+        // Find Spain (ES) as default or use first item
+        const spain = codes.find(country => country.code === "ES");
+        setSelectedCountry(spain || codes[0]);
+      }
+    };
+    
+    loadCountryCodes();
+  }, []);
 
   // Handle clicks outside the dropdowns
   useEffect(() => {
@@ -44,8 +87,6 @@ const ContactSecondSection = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const [selectedCountry, setSelectedCountry] = useState(countryCodes[0]);
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedInquiry, setSelectedInquiry] = useState("");
 
   const inquiryTypes = [
@@ -210,7 +251,8 @@ const ContactSecondSection = () => {
                         </div>
                         {showCountryCodes && (
                           <div className="absolute bg-white-50 top-full left-0 z-10 mt-[2px] w-[160px] max-h-[240px] overflow-y-auto bg-white shadow-lg border border-black-200 rounded-[4px]">
-                            {countryCodes.map((country) => (
+                            {/* Only render up to 20 countries at a time */}
+                            {countryCodes.slice(0, 20).map((country) => (
                               <div
                                 key={country.code}
                                 onClick={() => {
@@ -224,6 +266,11 @@ const ContactSecondSection = () => {
                                 <span>{country.dialCode}</span>
                               </div>
                             ))}
+                            {countryCodes.length > 20 && (
+                              <div className="p-[10px] text-center text-sm text-black-300">
+                                + {countryCodes.length - 20} more countries
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>

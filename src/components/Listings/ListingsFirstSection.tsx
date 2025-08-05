@@ -1,8 +1,7 @@
 import Image from "next/image";
-import ListingCard from "../atoms/ListingCard";
-import SearchSvg from "../Assests/Svg/SearchSvg";
-import ArrowDownSvg from "../Assests/Svg/ArrowDownSvg";
 import ArrowSmallDownSvg from "../Assests/Svg/ArrowSmallDownSvg";
+import SearchSvg from "../Assests/Svg/SearchSvg";
+import ListingCard from "../atoms/ListingCard";
 
 const ListingsFirstSection = () => {
   return (

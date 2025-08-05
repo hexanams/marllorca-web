@@ -1,4 +1,10 @@
-import ContactBackSvg from "../Assests/Svg/ContactBackSvg";
+"use client";
+import dynamic from "next/dynamic";
+
+// Dynamically load SVG component
+const ContactBackSvg = dynamic(() => import("../Assests/Svg/ContactBackSvg"), {
+  loading: () => <div className="absolute left-0 h-full w-1/2 bg-gray-200 opacity-20"></div>
+});
 
 const ContactFirstSection = () => {
   return (

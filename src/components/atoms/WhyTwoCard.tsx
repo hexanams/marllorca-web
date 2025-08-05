@@ -1,5 +1,3 @@
-import FanSvg from "../Assests/Svg/FanSvg";
-
 const WhyTwoCard = ({
   title,
   description,

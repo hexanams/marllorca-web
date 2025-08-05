@@ -1,7 +1,6 @@
-import Image from "next/image";
-import WhyCard from "../atoms/WhyCard";
 import HouseBackSvg from "../Assests/Svg/HouseBackSvg";
 import MallorcaSvg from "../Assests/Svg/MallorcaSvg";
+import WhyCard from "../atoms/WhyCard";
 
 const HomeSecondSection = () => {
   return (
@@ -42,7 +41,7 @@ const HomeSecondSection = () => {
             title="Understated Grandeur"
             description="True elegance doesn’t ask for attention — it holds it.
             Our homes are built not to impress, but to move you."
-            image="/images/hall.jpg"
+            image="/images/listing.jpg"
             className=""
           />
           <WhyCard
