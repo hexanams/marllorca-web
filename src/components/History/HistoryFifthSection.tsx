@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const HistoryFifthSection = () => {
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full overflow-hidden">
       <div className="container h-full mx-auto px-4">
         <div className="h-full w-full flex flex-row items-center justify-center relative">
           <div className="z-[1] w-[45%] h-[80%] absolute right-[-90%] lg:right-[0px]">

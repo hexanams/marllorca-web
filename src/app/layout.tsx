@@ -62,7 +62,7 @@ export default function RootLayout({
       <body
         className={`${satoshi.variable} ${helvetica_compressed.variable} antialiased h-full w-full`}
       >
-        <div className="h-full w-full relative">
+        <div className="h-full w-full relative ">
           <NavBar />
           {children}
           <Footer />
