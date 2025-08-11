@@ -1,0 +1,54 @@
+/* Smooth scrolling for better animation visibility */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scroll speed control */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-padding-top: 2rem;
+  }
+
+  /* Slower scroll on desktop for better animation viewing */
+  @media (min-width: 1024px) {
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Optional: Add momentum scrolling for webkit browsers */
+    body {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom scrollbar for better visual feedback */
+/* ::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8941f;
+} */

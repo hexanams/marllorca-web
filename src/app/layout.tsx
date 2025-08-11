@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "../styles/scroll-animations.css";
 import Footer from "@/components/layout/Footer";
 import NavBar from "@/components/layout/NavBar";
 
