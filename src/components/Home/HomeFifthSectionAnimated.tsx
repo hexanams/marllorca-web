@@ -27,7 +27,7 @@ const HomeFifthSectionAnimated = () => {
       // Initial setup
       gsap.set(imageContainerRef.current, {
         opacity: 0,
-        scale: 0.8,
+        scale: 1,
         borderRadius: "50px",
       });
 
@@ -182,16 +182,16 @@ const HomeFifthSectionAnimated = () => {
       // }
 
       // Image zoom effect on scroll
-      gsap.to(imageContainerRef.current, {
-        scale: 1.05,
-        ease: "none",
-        scrollTrigger: {
-          trigger: imageContainerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 2,
-        },
-      });
+      // gsap.to(imageContainerRef.current, {
+      //   scale: 1.05,
+      //   ease: "none",
+      //   scrollTrigger: {
+      //     trigger: imageContainerRef.current,
+      //     start: "top bottom",
+      //     end: "bottom top",
+      //     scrub: 2,
+      //   },
+      // });
 
       // Advanced text reveal animation
       const splitTitle = titleRef.current?.textContent?.split(" ") || [];

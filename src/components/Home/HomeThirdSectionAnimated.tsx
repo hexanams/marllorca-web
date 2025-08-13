@@ -24,14 +24,9 @@ const HomeThirdSectionAnimated = () => {
     if (typeof window === "undefined") return;
 
     const ctx = gsap.context(() => {
-      // Initial setup
+      // Initial setup - exclude titleRef since it has its own animation
       gsap.set(
-        [
-          titleRef.current,
-          subtitleRef.current,
-          descriptionRef.current,
-          buttonRef.current,
-        ],
+        [subtitleRef.current, descriptionRef.current, buttonRef.current],
         {
           opacity: 0,
           y: 80,
@@ -66,6 +61,7 @@ const HomeThirdSectionAnimated = () => {
 
       // Title animation with split text effect
       const titleElements = titleRef.current?.children;
+
       if (titleElements) {
         gsap.fromTo(
           titleElements,
@@ -90,6 +86,51 @@ const HomeThirdSectionAnimated = () => {
         );
       }
 
+      // Content text animation
+      gsap.to(subtitleRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: subtitleRef.current,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Advanced text reveal animation
+      const splitTitle = subtitleRef.current?.textContent?.split(" ") || [];
+      if (subtitleRef.current && splitTitle.length > 0) {
+        subtitleRef.current.innerHTML = splitTitle
+          .map(
+            (word) =>
+              `<span class="inline-block overflow-hidden"><span class="inline-block">${word}</span></span>`
+          )
+          .join(" ");
+
+        const subtitleWords = subtitleRef.current.querySelectorAll("span span");
+
+        gsap.fromTo(
+          subtitleWords,
+          {
+            yPercent: 100,
+          },
+          {
+            yPercent: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: subtitleRef.current,
+              start: "top 90%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
       // Content timeline
       const contentTl = gsap.timeline({
         scrollTrigger: {
@@ -100,12 +141,6 @@ const HomeThirdSectionAnimated = () => {
       });
 
       contentTl
-        .to(subtitleRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power2.out",
-        })
         .to(
           descriptionRef.current,
           {

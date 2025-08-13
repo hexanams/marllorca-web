@@ -29,7 +29,11 @@ const HomeForthSectionAnimated = () => {
 
     const ctx = gsap.context(() => {
       // Initial setup for first section
-      gsap.set([titleRef.current, descriptionRef.current, buttonRef.current], {
+      gsap.set(titleRef.current, {
+        opacity: 0,
+        y: 80,
+      });
+      gsap.set([descriptionRef.current, buttonRef.current], {
         opacity: 0,
         x: -80,
       });
@@ -72,6 +76,52 @@ const HomeForthSectionAnimated = () => {
         },
       });
 
+      // Content text animation
+      gsap.to(titleRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Advanced text reveal animation
+      const splitTitle = titleRef.current?.textContent?.split(" ") || [];
+      if (titleRef.current && splitTitle.length > 0) {
+        titleRef.current.innerHTML = splitTitle
+          .map(
+            (word) =>
+              `<span class="inline-block overflow-hidden"><span class="inline-block">${word}</span></span>`
+          )
+          .join(" ");
+
+        const subtitleWords = titleRef.current.querySelectorAll("span span");
+
+        gsap.fromTo(
+          subtitleWords,
+          {
+            yPercent: 100,
+          },
+          {
+            yPercent: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              end: "30% 50%",
+              scrub: 2,
+            },
+          }
+        );
+      }
+
       // First section timeline - slide in from sides
       const firstSectionTl = gsap.timeline({
         scrollTrigger: {
@@ -83,7 +133,7 @@ const HomeForthSectionAnimated = () => {
       });
 
       firstSectionTl
-        .to([titleRef.current, descriptionRef.current, buttonRef.current], {
+        .to([descriptionRef.current, buttonRef.current], {
           opacity: 1,
           x: 0,
           duration: 1.5,

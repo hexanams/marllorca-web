@@ -79,16 +79,6 @@ const HomeSecondSectionAnimated = () => {
           "-=1"
         )
         .to(
-          titleRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out",
-          },
-          "-=0.4"
-        )
-        .to(
           descriptionRef.current,
           {
             opacity: 1,
@@ -98,6 +88,52 @@ const HomeSecondSectionAnimated = () => {
           },
           "-=0.6"
         );
+
+      // Content text animation
+      gsap.to(titleRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          start: "top 80%",
+          end: "top 20%",
+          toggleActions: "play none play reverse",
+        },
+      });
+
+      // Advanced text reveal animation
+      const splitTitle = titleRef.current?.textContent?.split(" ") || [];
+      if (titleRef.current && splitTitle.length > 0) {
+        titleRef.current.innerHTML = splitTitle
+          .map(
+            (word) =>
+              `<span class="inline-block overflow-hidden"><span class="inline-block">${word}</span></span>`
+          )
+          .join(" ");
+
+        const subtitleWords = titleRef.current.querySelectorAll("span span");
+
+        gsap.fromTo(
+          subtitleWords,
+          {
+            yPercent: 100,
+          },
+          {
+            yPercent: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              end: "30% 50%",
+              scrub: 2,
+            },
+          }
+        );
+      }
 
       // Animate cards with stagger
       gsap.to(cardsRef.current?.children || [], {
