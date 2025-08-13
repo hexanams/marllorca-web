@@ -36,24 +36,36 @@ const HomePageAnimated = () => {
       return;
     }
 
-    // Use window.onload to ensure all resources are loaded
+    let assetsReady = false;
+    let minTimeElapsed = false;
+
+    // Function to check if both conditions are met
+    const checkLoadingComplete = () => {
+      if (assetsReady && minTimeElapsed) {
+        setIsLoading(false);
+        setHasInitialized(true);
+      }
+    };
+
+    // Handle window load
     const handleWindowLoad = () => {
       setAssetsLoaded(true);
+      assetsReady = true;
+      checkLoadingComplete();
     };
 
     // Check if window is already loaded
     if (document.readyState === "complete") {
       setAssetsLoaded(true);
+      assetsReady = true;
     } else {
       window.addEventListener("load", handleWindowLoad);
     }
 
     // Minimum loading time
     const minLoadTime = setTimeout(() => {
-      if (assetsLoaded) {
-        setIsLoading(false);
-        setHasInitialized(true);
-      }
+      minTimeElapsed = true;
+      checkLoadingComplete();
     }, 2000);
 
     return () => {

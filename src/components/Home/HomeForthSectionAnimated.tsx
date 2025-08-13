@@ -290,7 +290,9 @@ const HomeForthSectionAnimated = () => {
               src="/images/gettingKeys.jpg"
               alt=""
               width={1000}
+              quality={60}
               height={1000}
+              priority
               objectFit="cover"
               className="w-full h-full object-cover"
             />

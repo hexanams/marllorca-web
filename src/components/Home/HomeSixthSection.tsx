@@ -8,8 +8,10 @@ const HomeSixthSection = () => {
           src="/images/backThree.jpg"
           alt="background"
           width={1000}
+          quality={60}
           height={1000}
           objectFit="cover"
+          priority
           objectPosition="top center"
           className="w-full h-full object-cover z-[1]"
         />

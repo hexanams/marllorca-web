@@ -154,6 +154,7 @@ const HomeFirstSectionAnimated = () => {
           src="/images/back.jpg"
           alt=""
           width={1000}
+          quality={80}
           height={1000}
           objectFit="cover"
           className="w-full h-full object-cover"

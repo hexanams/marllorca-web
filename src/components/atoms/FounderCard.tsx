@@ -22,7 +22,9 @@ const FounderCard = ({
           src={image}
           alt=""
           width={1000}
+          quality={60}
           height={1000}
+          priority
           objectFit="cover"
           objectPosition="top"
           className="w-full h-full object-cover"

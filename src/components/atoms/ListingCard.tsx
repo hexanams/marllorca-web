@@ -118,7 +118,9 @@ const ListingCard = ({
         src={image}
         alt="Property"
         width={1000}
+        quality={60}
         height={1000}
+        priority
         className="object-cover w-full h-full"
       />
       {/* Glass overlay effect */}

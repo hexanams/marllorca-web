@@ -14,7 +14,9 @@ const HomeFifthSection = () => {
             src="/images/backTwo.jpg"
             alt="background"
             width={1000}
+            quality={80}
             height={1000}
+            priority
             objectFit="cover"
             className="w-full h-full object-cover"
           />

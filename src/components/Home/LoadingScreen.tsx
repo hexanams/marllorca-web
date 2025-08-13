@@ -60,9 +60,9 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({
         yPercent: -100,
         duration: 1.2,
         ease: "power2.inOut",
-        onComplete: () => {
-          onComplete();
-        },
+        // onComplete: () => {
+        //   onComplete();
+        // },
       });
     }
 

@@ -10,6 +10,7 @@ const HistorySecondSection = () => {
               src="/HistoryBackTwo.svg"
               alt="contact"
               width={1000}
+              quality={80}
               height={1000}
               priority={true}
               objectFit="cover"
