@@ -1,17 +1,7 @@
-import HomeSixthSection from "@/components/Home/HomeSixthSection";
-import PropertyFirstSection from "@/components/Property/PropertyFirstSection";
-import PropertySecondSection from "@/components/Property/PropertySecondSection";
-import PropertyThirdScetion from "@/components/Property/PropertyThirdScetion";
+import PropertyPageAnimated from "@/components/Property/PropertyPageAnimated";
 
 const page = () => {
-  return (
-    <>
-      <PropertyFirstSection />
-      <PropertySecondSection />
-      <PropertyThirdScetion />
-      <HomeSixthSection />
-    </>
-  );
+  return <PropertyPageAnimated />;
 };
 
 export default page;

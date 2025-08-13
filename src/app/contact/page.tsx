@@ -1,15 +1,7 @@
-import ContactFirstSection from "@/components/Contact/ContactFirstSection";
-import ContactSecondSection from "@/components/Contact/ContactSecondSection";
-import HomeSixthSection from "@/components/Home/HomeSixthSection";
+import ContactPageAnimated from "@/components/Contact/ContactPageAnimated";
 
 const page = () => {
-  return (
-    <>
-      <ContactFirstSection />
-      <ContactSecondSection />
-      <HomeSixthSection />
-    </>
-  );
+  return <ContactPageAnimated />;
 };
 
 export default page;

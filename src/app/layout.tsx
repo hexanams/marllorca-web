@@ -4,6 +4,7 @@ import "./globals.css";
 import "../styles/scroll-animations.css";
 import Footer from "@/components/layout/Footer";
 import NavBar from "@/components/layout/NavBar";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 const satoshi = localFont({
   src: [
@@ -63,6 +64,7 @@ export default function RootLayout({
       <body
         className={`${satoshi.variable} ${helvetica_compressed.variable} antialiased h-full w-full`}
       >
+        <ScrollToTop />
         <div className="h-full w-full relative ">
           <NavBar />
           {children}
