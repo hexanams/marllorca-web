@@ -36,27 +36,17 @@ const HomePageAnimated = () => {
       return;
     }
 
-    // Preload critical images
-    const criticalImages = [
-      "/images/back.jpg",
-      "/images/pool.jpg",
-      "/images/listing.jpg",
-      "/images/out.jpg",
-    ];
-
-    const imagePromises = criticalImages.map((src) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = resolve;
-        img.onerror = reject;
-        img.src = src;
-      });
-    });
-
-    // Wait for images to load
-    Promise.allSettled(imagePromises).then(() => {
+    // Use window.onload to ensure all resources are loaded
+    const handleWindowLoad = () => {
       setAssetsLoaded(true);
-    });
+    };
+
+    // Check if window is already loaded
+    if (document.readyState === "complete") {
+      setAssetsLoaded(true);
+    } else {
+      window.addEventListener("load", handleWindowLoad);
+    }
 
     // Minimum loading time
     const minLoadTime = setTimeout(() => {
@@ -66,7 +56,10 @@ const HomePageAnimated = () => {
       }
     }, 2000);
 
-    return () => clearTimeout(minLoadTime);
+    return () => {
+      clearTimeout(minLoadTime);
+      window.removeEventListener("load", handleWindowLoad);
+    };
   }, [
     assetsLoaded,
     hasInitialized,
@@ -87,8 +80,6 @@ const HomePageAnimated = () => {
       ScrollTrigger.refresh();
     }
   }, [isLoading, assetsLoaded]);
-
-  console.log("assetsLoaded", assetsLoaded);
 
   const handleLoadingComplete = () => {
     if (assetsLoaded) {

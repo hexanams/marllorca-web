@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -90,13 +90,17 @@ const HomeForthSectionAnimated = () => {
           stagger: 0.2,
           ease: "power2.out",
         })
-        .to(imageRef.current, {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 1.5,
-          ease: "power2.out",
-        }, "-=1");
+        .to(
+          imageRef.current,
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 1.5,
+            ease: "power2.out",
+          },
+          "-=1"
+        );
 
       // Image parallax effect
       gsap.to(imageRef.current, {
@@ -169,7 +173,7 @@ const HomeForthSectionAnimated = () => {
       if (cards) {
         Array.from(cards).forEach((card, index) => {
           const cardElement = card as HTMLElement;
-          
+
           cardElement.addEventListener("mouseenter", () => {
             gsap.to(cardElement, {
               scale: 1.03,
@@ -178,7 +182,7 @@ const HomeForthSectionAnimated = () => {
               duration: 0.4,
               ease: "power2.out",
             });
-            
+
             // Subtle effect on other card
             Array.from(cards).forEach((otherCard, otherIndex) => {
               if (otherIndex !== index) {
@@ -200,7 +204,7 @@ const HomeForthSectionAnimated = () => {
               duration: 0.4,
               ease: "power2.out",
             });
-            
+
             // Reset other cards
             Array.from(cards).forEach((otherCard, otherIndex) => {
               if (otherIndex !== index) {
@@ -234,7 +238,6 @@ const HomeForthSectionAnimated = () => {
           });
         });
       }
-
     }, sectionRef);
 
     return () => ctx.revert();
@@ -257,13 +260,13 @@ const HomeForthSectionAnimated = () => {
         {/* First section */}
         <div className="flex flex-col lg:flex-row max-lg:gap-[32px] w-full relative">
           <div className="z-[2] w-full lg:w-[50%] flex flex-col gap-[8px] items-start justify-center">
-            <h2 
+            <h2
               ref={titleRef}
               className="font-satoshi font-[400] text-[32px] leading-[40px] lg:text-[46px] lg:leading-[69px] text-black-500"
             >
               The Heart of Our Business
             </h2>
-            <p 
+            <p
               ref={descriptionRef}
               className="font-helvetica lg:w-[80%] font-[300] text-[14px] leading-[20px] lg:text-[18px] lg:leading-[27px] text-black-500"
             >
@@ -272,14 +275,14 @@ const HomeForthSectionAnimated = () => {
               concierge partners, and lifestyle curators, our work begins where
               traditional bookings end.
             </p>
-            <button 
+            <button
               ref={buttonRef}
               className="mt-[32px] bg-gold-500 font-helvetica font-[300] text-[14px] leading-[20px] lg:text-[18px] lg:leading-[27px] text-white-500 text-center w-full max-w-[186px] py-[10px] rounded-[4px] hover:bg-gold-600 transition-colors duration-300"
             >
               About Us
             </button>
           </div>
-          <div 
+          <div
             ref={imageRef}
             className="z-[2] w-full lg:w-[50%] h-[592px] overflow-hidden rounded-[8px]"
           >
@@ -296,13 +299,13 @@ const HomeForthSectionAnimated = () => {
 
         {/* Founders section */}
         <div className="flex flex-col items-center w-full mt-[80px] gap-[40px]">
-          <h2 
+          <h2
             ref={foundersHeaderRef}
             className="font-satoshi font-[300] text-[20px] leading-[30px] lg:text-[38px] lg:leading-[57px] text-gold-500"
           >
             Words from the founders
           </h2>
-          <div 
+          <div
             ref={founderCardsRef}
             className="w-full grid grid-cols-1 md:grid-cols-2 gap-[24px]"
           >
