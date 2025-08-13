@@ -23,11 +23,7 @@ const HomeFirstSectionAnimated = () => {
     if (typeof window === "undefined") return;
 
     const ctx = gsap.context(() => {
-      // Initial setup - hide all elements including section
-      gsap.set(sectionRef.current, {
-        opacity: 0,
-      });
-      
+      // Initial setup - hide all elements
       gsap.set(
         [
           heroTextRef.current,
@@ -41,8 +37,8 @@ const HomeFirstSectionAnimated = () => {
         }
       );
 
-      // Create entrance timeline
-      const entranceTl = gsap.timeline({ delay: 0.1 });
+      // Create entrance timeline - no delay for immediate appearance
+      const entranceTl = gsap.timeline({ delay: 0 });
 
       entranceTl
         .to(heroTextRef.current, {
@@ -90,25 +86,29 @@ const HomeFirstSectionAnimated = () => {
           trigger: sectionRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: 3,  // Slower, smoother animation
+          scrub: 3, // Slower, smoother animation
         },
       });
 
       // Hero text scale and fade on scroll
-      gsap.fromTo(heroTextRef.current, {
-        scale: 1,      // Starting values (100% scale)
-        opacity: 1     // Starting values (100% opacity)
-      }, {
-        scale: 0.8,    // Ending values (80% scale)
-        opacity: 0.3,  // Ending values (30% opacity)
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 3,      // Slower, more visible animation
+      gsap.fromTo(
+        heroTextRef.current,
+        {
+          scale: 1, // Starting values (100% scale)
+          opacity: 1, // Starting values (100% opacity)
         },
-      });
+        {
+          scale: 0.8, // Ending values (80% scale)
+          opacity: 0.3, // Ending values (30% opacity)
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 3, // Slower, more visible animation
+          },
+        }
+      );
 
       // Scroll indicator animation
       gsap.to(scrollIndicatorRef.current, {
@@ -118,8 +118,8 @@ const HomeFirstSectionAnimated = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "30% top",  // Extended range
-          scrub: 2         // Slower fade out
+          end: "30% top", // Extended range
+          scrub: 2, // Slower fade out
         },
       });
 
