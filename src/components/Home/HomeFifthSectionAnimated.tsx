@@ -88,16 +88,6 @@ const HomeFifthSectionAnimated = () => {
           ease: "power2.out",
         })
         .to(
-          imageRef.current,
-          {
-            scale: 1,
-            filter: "blur(0px)",
-            duration: 1.5,
-            ease: "power2.out",
-          },
-          "-=1.2"
-        )
-        .to(
           contentCardRef.current,
           {
             opacity: 1,
@@ -128,7 +118,9 @@ const HomeFifthSectionAnimated = () => {
       gsap.to(imageRef.current, {
         y: -40,
         scale: 1.1,
-        ease: "none",
+        filter: "blur(0px)",
+        ease: "power2.out",
+        duration: 0.5,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top bottom",
@@ -249,9 +241,8 @@ const HomeFifthSectionAnimated = () => {
             src="/images/backTwo.jpg"
             alt="background"
             width={1000}
-            quality={80}
+            quality={60}
             height={1000}
-            priority
             objectFit="cover"
             className="w-full h-full object-cover"
           />
