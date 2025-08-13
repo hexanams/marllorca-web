@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -32,7 +32,7 @@ const HomeFifthSectionAnimated = () => {
       });
 
       gsap.set(imageRef.current, {
-        scale: 1.2,
+        scale: 1,
         filter: "blur(10px)",
       });
 
@@ -87,20 +87,28 @@ const HomeFifthSectionAnimated = () => {
           duration: 1.5,
           ease: "power2.out",
         })
-        .to(imageRef.current, {
-          scale: 1,
-          filter: "blur(0px)",
-          duration: 1.5,
-          ease: "power2.out",
-        }, "-=1.2")
-        .to(contentCardRef.current, {
-          opacity: 1,
-          y: 0,
-          x: 0,
-          scale: 1,
-          duration: 1.2,
-          ease: "power2.out",
-        }, "-=0.8");
+        .to(
+          imageRef.current,
+          {
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 1.5,
+            ease: "power2.out",
+          },
+          "-=1.2"
+        )
+        .to(
+          contentCardRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            scale: 1,
+            duration: 1.2,
+            ease: "power2.out",
+          },
+          "-=0.8"
+        );
 
       // Content text animation
       gsap.to([titleRef.current, descriptionRef.current], {
@@ -153,25 +161,25 @@ const HomeFifthSectionAnimated = () => {
       });
 
       // Hover effect for content card
-      if (contentCardRef.current) {
-        contentCardRef.current.addEventListener("mouseenter", () => {
-          gsap.to(contentCardRef.current, {
-            scale: 1.02,
-            y: -5,
-            duration: 0.4,
-            ease: "power2.out",
-          });
-        });
+      // if (contentCardRef.current) {
+      //   contentCardRef.current.addEventListener("mouseenter", () => {
+      //     gsap.to(contentCardRef.current, {
+      //       scale: 1.02,
+      //       y: -5,
+      //       duration: 0.4,
+      //       ease: "power2.out",
+      //     });
+      //   });
 
-        contentCardRef.current.addEventListener("mouseleave", () => {
-          gsap.to(contentCardRef.current, {
-            scale: 1,
-            y: 0,
-            duration: 0.4,
-            ease: "power2.out",
-          });
-        });
-      }
+      //   contentCardRef.current.addEventListener("mouseleave", () => {
+      //     gsap.to(contentCardRef.current, {
+      //       scale: 1,
+      //       y: 0,
+      //       duration: 0.4,
+      //       ease: "power2.out",
+      //     });
+      //   });
+      // }
 
       // Image zoom effect on scroll
       gsap.to(imageContainerRef.current, {
@@ -186,29 +194,35 @@ const HomeFifthSectionAnimated = () => {
       });
 
       // Advanced text reveal animation
-      const splitTitle = titleRef.current?.textContent?.split(' ') || [];
+      const splitTitle = titleRef.current?.textContent?.split(" ") || [];
       if (titleRef.current && splitTitle.length > 0) {
         titleRef.current.innerHTML = splitTitle
-          .map(word => `<span class="inline-block overflow-hidden"><span class="inline-block">${word}</span></span>`)
-          .join(' ');
+          .map(
+            (word) =>
+              `<span class="inline-block overflow-hidden"><span class="inline-block">${word}</span></span>`
+          )
+          .join(" ");
 
-        const titleWords = titleRef.current.querySelectorAll('span span');
-        
-        gsap.fromTo(titleWords, {
-          yPercent: 100,
-        }, {
-          yPercent: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+        const titleWords = titleRef.current.querySelectorAll("span span");
+
+        gsap.fromTo(
+          titleWords,
+          {
+            yPercent: 100,
           },
-        });
+          {
+            yPercent: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: titleRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
       }
-
     }, sectionRef);
 
     return () => ctx.revert();
@@ -226,7 +240,7 @@ const HomeFifthSectionAnimated = () => {
         </div>
 
         {/* Main Content */}
-        <div 
+        <div
           ref={imageContainerRef}
           className="z-[2] h-[635px] w-full bg-[#F5F5F5] rounded-[16px] overflow-hidden relative"
         >
@@ -239,19 +253,19 @@ const HomeFifthSectionAnimated = () => {
             objectFit="cover"
             className="w-full h-full object-cover"
           />
-          
+
           {/* Content Card */}
-          <div 
+          <div
             ref={contentCardRef}
             className="absolute bg-white-900 max-lg:left-[0px] max-lg:mx-auto right-[0px] lg:right-[125px] bottom-[0px] w-full max-w-[555px] h-fit p-[32px] flex flex-col gap-[8px] rounded-tl-[8px] rounded-tr-[8px] shadow-lg"
           >
-            <h5 
+            <h5
               ref={titleRef}
               className="font-satoshi font-[400] text-[24px] leading-[36px] lg:text-[32px] lg:leading-[48px] text-black-900"
             >
               Built on Taste, Trust, and Tranquility
             </h5>
-            <p 
+            <p
               ref={descriptionRef}
               className="font-helvetica font-[300] text-[14px] leading-[20px] lg:text-[18px] lg:leading-[27px] text-black-900"
             >

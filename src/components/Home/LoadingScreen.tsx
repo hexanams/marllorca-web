@@ -4,10 +4,14 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 interface LoadingScreenProps {
+  assetsLoaded: boolean;
   onComplete: () => void;
 }
 
-const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
+const LoadingScreen: React.FC<LoadingScreenProps> = ({
+  assetsLoaded,
+  onComplete,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -48,8 +52,16 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
         duration: 0.8,
         stagger: 0.1,
         ease: "power2.in",
-      })
-      .to(containerRef.current, {
+      });
+
+    return () => {
+      tl.kill();
+    };
+  }, [onComplete, assetsLoaded]);
+
+  useEffect(() => {
+    if (assetsLoaded) {
+      gsap.to(containerRef.current, {
         yPercent: -100,
         duration: 1.2,
         ease: "power2.inOut",
@@ -57,11 +69,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           onComplete();
         },
       });
-
-    return () => {
-      tl.kill();
-    };
-  }, [onComplete]);
+    }
+  }, [assetsLoaded, onComplete]);
 
   return (
     <div

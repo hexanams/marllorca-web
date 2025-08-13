@@ -1,34 +1,34 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useLoadingStore } from '@/stores/loadingStore';
-import LoadingScreen from './LoadingScreen';
-import HomeFirstSectionAnimated from './HomeFirstSectionAnimated';
-import HomeSecondSectionAnimated from './HomeSecondSectionAnimated';
-import HomeThirdSectionAnimated from './HomeThirdSectionAnimated';
-import HomeForthSectionAnimated from './HomeForthSectionAnimated';
-import HomeFifthSectionAnimated from './HomeFifthSectionAnimated';
-import HomeSixthSection from './HomeSixthSection';
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLoadingStore } from "@/stores/loadingStore";
+import LoadingScreen from "./LoadingScreen";
+import HomeFirstSectionAnimated from "./HomeFirstSectionAnimated";
+import HomeSecondSectionAnimated from "./HomeSecondSectionAnimated";
+import HomeThirdSectionAnimated from "./HomeThirdSectionAnimated";
+import HomeForthSectionAnimated from "./HomeForthSectionAnimated";
+import HomeFifthSectionAnimated from "./HomeFifthSectionAnimated";
+import HomeSixthSection from "./HomeSixthSection";
 
 // Register ScrollTrigger plugin
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 const HomePageAnimated = () => {
-  const { 
-    isLoading, 
-    assetsLoaded, 
-    hasInitialized, 
-    setIsLoading, 
-    setAssetsLoaded, 
-    setHasInitialized 
+  const {
+    isLoading,
+    assetsLoaded,
+    hasInitialized,
+    setIsLoading,
+    setAssetsLoaded,
+    setHasInitialized,
   } = useLoadingStore();
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     // If already initialized, skip loading
     if (hasInitialized) {
@@ -38,10 +38,10 @@ const HomePageAnimated = () => {
 
     // Preload critical images
     const criticalImages = [
-      '/images/back.jpg',
-      '/images/pool.jpg',
-      '/images/listing.jpg',
-      '/images/out.jpg'
+      "/images/back.jpg",
+      "/images/pool.jpg",
+      "/images/listing.jpg",
+      "/images/out.jpg",
     ];
 
     const imagePromises = criticalImages.map((src) => {
@@ -67,16 +67,22 @@ const HomePageAnimated = () => {
     }, 2000);
 
     return () => clearTimeout(minLoadTime);
-  }, [assetsLoaded, hasInitialized, setIsLoading, setAssetsLoaded, setHasInitialized]);
+  }, [
+    assetsLoaded,
+    hasInitialized,
+    setIsLoading,
+    setAssetsLoaded,
+    setHasInitialized,
+  ]);
 
   useEffect(() => {
     if (assetsLoaded && !isLoading) {
       // Initialize smooth scrolling and other global animations
-      gsap.set('body', { overflow: 'visible' });
-      
+      gsap.set("body", { overflow: "visible" });
+
       // Add smooth scrolling behavior
-      document.documentElement.style.scrollBehavior = 'smooth';
-      
+      document.documentElement.style.scrollBehavior = "smooth";
+
       // Refresh ScrollTrigger after loading
       ScrollTrigger.refresh();
     }
@@ -90,7 +96,12 @@ const HomePageAnimated = () => {
   };
 
   if (isLoading) {
-    return <LoadingScreen onComplete={handleLoadingComplete} />;
+    return (
+      <LoadingScreen
+        assetsLoaded={assetsLoaded}
+        onComplete={handleLoadingComplete}
+      />
+    );
   }
 
   return (
@@ -110,24 +121,26 @@ const HomePageAnimated = () => {
 // Scroll Progress Indicator Component
 const ScrollProgressIndicator = () => {
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
-    const progressBar = document.createElement('div');
-    progressBar.className = 'fixed top-0 left-0 h-1 bg-gold-500 z-50 transition-all duration-300';
-    progressBar.style.width = '0%';
+    const progressBar = document.createElement("div");
+    progressBar.className =
+      "fixed top-0 left-0 h-1 bg-gold-500 z-50 transition-all duration-300";
+    progressBar.style.width = "0%";
     document.body.appendChild(progressBar);
 
     const updateProgress = () => {
       const scrollTop = window.pageYOffset;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = (scrollTop / docHeight) * 100;
       progressBar.style.width = `${scrollPercent}%`;
     };
 
-    window.addEventListener('scroll', updateProgress);
+    window.addEventListener("scroll", updateProgress);
 
     return () => {
-      window.removeEventListener('scroll', updateProgress);
+      window.removeEventListener("scroll", updateProgress);
       if (document.body.contains(progressBar)) {
         document.body.removeChild(progressBar);
       }
