@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "../styles/scroll-animations.css";
-import Footer from "@/components/layout/Footer";
+import FooterAnimated from "@/components/layout/FooterAnimated";
 import NavBar from "@/components/layout/NavBar";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 
@@ -68,7 +68,7 @@ export default function RootLayout({
         <div className="h-full w-full relative ">
           <NavBar />
           {children}
-          <Footer />
+          <FooterAnimated />
         </div>
       </body>
     </html>

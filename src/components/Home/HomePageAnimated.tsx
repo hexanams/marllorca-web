@@ -19,20 +19,20 @@ if (typeof window !== "undefined") {
 
 const HomePageAnimated = () => {
   const {
-    isLoading,
-    assetsLoaded,
-    hasInitialized,
-    setIsLoading,
-    setAssetsLoaded,
-    setHasInitialized,
+    getPageState,
+    setPageLoading,
+    setPageAssetsLoaded,
+    setPageInitialized,
   } = useLoadingStore();
+  
+  const { isLoading, assetsLoaded, hasInitialized } = getPageState('home');
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     // If already initialized, skip loading
     if (hasInitialized) {
-      setIsLoading(false);
+      setPageLoading('home', false);
       return;
     }
 
@@ -42,21 +42,21 @@ const HomePageAnimated = () => {
     // Function to check if both conditions are met
     const checkLoadingComplete = () => {
       if (assetsReady && minTimeElapsed) {
-        setIsLoading(false);
-        setHasInitialized(true);
+        setPageLoading('home', false);
+        setPageInitialized('home', true);
       }
     };
 
     // Handle window load
     const handleWindowLoad = () => {
-      setAssetsLoaded(true);
+      setPageAssetsLoaded('home', true);
       assetsReady = true;
       checkLoadingComplete();
     };
 
     // Check if window is already loaded
     if (document.readyState === "complete") {
-      setAssetsLoaded(true);
+      setPageAssetsLoaded('home', true);
       assetsReady = true;
     } else {
       window.addEventListener("load", handleWindowLoad);
@@ -75,9 +75,9 @@ const HomePageAnimated = () => {
   }, [
     assetsLoaded,
     hasInitialized,
-    setIsLoading,
-    setAssetsLoaded,
-    setHasInitialized,
+    setPageLoading,
+    setPageAssetsLoaded,
+    setPageInitialized,
   ]);
 
   useEffect(() => {
@@ -95,8 +95,8 @@ const HomePageAnimated = () => {
 
   const handleLoadingComplete = () => {
     if (assetsLoaded) {
-      setIsLoading(false);
-      setHasInitialized(true);
+      setPageLoading('home', false);
+      setPageInitialized('home', true);
     }
   };
 

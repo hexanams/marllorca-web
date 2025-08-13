@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLoadingStore } from "@/stores/loadingStore";
+import LoadingScreen from "../Home/LoadingScreen";
 import HistoryFirstSectionAnimated from "./HistoryFirstSectionAnimated";
 import HistorySecondSectionAnimated from "./HistorySecondSectionAnimated";
 import HistoryThirdSectionAnimated from "./HistoryThirdSectionAnimated";
 import HistoryForthSectionAnimated from "./HistoryForthSectionAnimated";
 import HistoryFifthSectionAnimated from "./HistoryFifthSectionAnimated";
-import HomeSixthSectionAnimated from "../Home/HomeSixthSection";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -16,49 +17,102 @@ if (typeof window !== "undefined") {
 }
 
 const HistoryPageAnimated = () => {
-  const pageRef = useRef<HTMLDivElement>(null);
+  const {
+    getPageState,
+    setPageLoading,
+    setPageAssetsLoaded,
+    setPageInitialized,
+  } = useLoadingStore();
+  
+  const { isLoading, assetsLoaded, hasInitialized } = getPageState('history');
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const ctx = gsap.context(() => {
-      // Smooth scroll setup
+    // If already initialized, skip loading
+    if (hasInitialized) {
+      setPageLoading('history', false);
+      return;
+    }
+
+    let assetsReady = false;
+    let minTimeElapsed = false;
+
+    // Function to check if both conditions are met
+    const checkLoadingComplete = () => {
+      if (assetsReady && minTimeElapsed) {
+        setPageLoading('history', false);
+        setPageInitialized('history', true);
+      }
+    };
+
+    // Handle window load
+    const handleWindowLoad = () => {
+      setPageAssetsLoaded('history', true);
+      assetsReady = true;
+      checkLoadingComplete();
+    };
+
+    // Check if window is already loaded
+    if (document.readyState === "complete") {
+      setPageAssetsLoaded('history', true);
+      assetsReady = true;
+    } else {
+      window.addEventListener("load", handleWindowLoad);
+    }
+
+    // Minimum loading time
+    const minLoadTime = setTimeout(() => {
+      minTimeElapsed = true;
+      checkLoadingComplete();
+    }, 2000);
+
+    return () => {
+      clearTimeout(minLoadTime);
+      window.removeEventListener("load", handleWindowLoad);
+    };
+  }, [hasInitialized, setPageLoading, setPageAssetsLoaded, setPageInitialized]);
+
+  useEffect(() => {
+    if (assetsLoaded && !isLoading) {
+      // Initialize smooth scrolling and other global animations
+      gsap.set("body", { overflow: "visible" });
+
+      // Add smooth scrolling behavior
+      document.documentElement.style.scrollBehavior = "smooth";
+
+      // Refresh ScrollTrigger after loading
       ScrollTrigger.refresh();
+    }
+  }, [isLoading, assetsLoaded]);
 
-      // Page entrance animation
-      // gsap.fromTo(
-      //   pageRef.current,
-      //   {
-      //     opacity: 0.7,
-      //   },
-      //   {
-      //     opacity: 1,
-      //     duration: 0.5,
-      //     ease: "power2.out",
-      //   }
-      // );
-
-      // Refresh ScrollTrigger after all sections are rendered
-      const refreshTimeout = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-
-      return () => clearTimeout(refreshTimeout);
-    }, pageRef);
-
-    return () => ctx.revert();
-  }, []);
+  const handleLoadingComplete = () => {
+    if (assetsLoaded) {
+      setPageLoading('history', false);
+      setPageInitialized('history', true);
+    }
+  };
 
   return (
-    <div ref={pageRef} className="relative ">
-      {/* Animated History Sections */}
-      <HistoryFirstSectionAnimated />
-      <HistorySecondSectionAnimated />
-      <HistoryThirdSectionAnimated />
-      <HistoryForthSectionAnimated />
-      <HistoryFifthSectionAnimated />
-      <HomeSixthSectionAnimated />
-    </div>
+    <>
+      {/* Always render content for asset loading */}
+      <div className={`relative ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        {/* Animated History Sections */}
+        <HistoryFirstSectionAnimated />
+        <HistorySecondSectionAnimated />
+        <HistoryThirdSectionAnimated />
+        <HistoryForthSectionAnimated />
+        <HistoryFifthSectionAnimated />
+      </div>
+      
+      {/* Show loading screen when loading */}
+      {isLoading && (
+        <LoadingScreen
+          assetsLoaded={assetsLoaded}
+          onComplete={handleLoadingComplete}
+        />
+      )}
+    </>
   );
 };
 

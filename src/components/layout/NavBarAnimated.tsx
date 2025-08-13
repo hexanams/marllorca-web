@@ -1,11 +1,12 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import LogoSvg from "../Assests/Svg/LogoSvg";
 
-const NavBar = () => {
+const NavBarAnimated = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -14,25 +15,11 @@ const NavBar = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
 
-  // Check if current page has dark background (contact or history)
+  // Check if current page has dark background
   const isDarkPage =
     (pathname === "/contact" && !mobileMenuOpen) ||
     (pathname === "/history" && !mobileMenuOpen) ||
     (pathname === "/sell-your-property" && !mobileMenuOpen);
-
-  // Close menu when clicking outside
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-  //       setMobileMenuOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -90,17 +77,37 @@ const NavBar = () => {
     });
   }, [isVisible]);
 
+  // Initial navbar entrance animation
+  useEffect(() => {
+    if (!navRef.current) return;
+
+    gsap.fromTo(
+      navRef.current,
+      {
+        y: -100,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.out",
+        delay: 0.2,
+      }
+    );
+  }, []);
+
   return (
     <>
       <nav
         ref={navRef}
         className={`w-full h-[96px] ${
           scrolled
-            ? "bg-black-500/10 backdrop-blur-[4px] shadow-sm translate-y-0"
+            ? "bg-black-500/10 backdrop-blur-[4px] shadow-sm"
             : "bg-transparent"
         } flex items-center justify-between px-4 lg:px-10 z-50 fixed top-0 transition-all duration-300`}
       >
-        <div className="container h-full mx-auto px-4 ">
+        <div className="container h-full mx-auto px-4">
           <div className="w-full h-full flex flex-row items-center justify-between">
             <div className="flex items-center">
               <Link
@@ -110,7 +117,7 @@ const NavBar = () => {
                 }`}
               >
                 <LogoSvg
-                  className={`w-[150px] ${
+                  className={`w-[150px] transition-all duration-300 ${
                     isDarkPage && !scrolled ? "filter brightness-0 invert" : ""
                   }`}
                 />
@@ -121,171 +128,145 @@ const NavBar = () => {
             <div className="hidden lg:flex items-center gap-8 transition-all duration-300">
               <Link
                 href="/"
-                className={`font-helvetica font-[300] text-[16px] ${
+                className={`font-helvetica font-[300] text-[16px] transition-colors duration-300 hover:text-gold-500 ${
                   pathname === "/"
                     ? "text-gold-500"
                     : isDarkPage && !scrolled
                     ? "text-white-500"
-                    : "text-gold-900"
-                } hover:text-gold-500 transition-colors duration-300`}
+                    : "text-black-500"
+                }`}
               >
-                HOME
-              </Link>
-              <Link
-                href="/listings"
-                className={`font-helvetica font-[300] text-[16px] ${
-                  pathname === "/listings"
-                    ? "text-gold-500"
-                    : isDarkPage && !scrolled
-                    ? "text-white-500"
-                    : "text-gold-900"
-                } hover:text-gold-500 transition-colors duration-300`}
-              >
-                LISTINGS
+                Home
               </Link>
               <Link
                 href="/history"
-                className={`font-helvetica font-[300] text-[16px] ${
+                className={`font-helvetica font-[300] text-[16px] transition-colors duration-300 hover:text-gold-500 ${
                   pathname === "/history"
                     ? "text-gold-500"
                     : isDarkPage && !scrolled
                     ? "text-white-500"
-                    : "text-gold-900"
-                } hover:text-gold-500 transition-colors duration-300`}
+                    : "text-black-500"
+                }`}
               >
-                HISTORY
+                About Us
               </Link>
               <Link
                 href="/sell-your-property"
-                className={`font-helvetica font-[300] text-[16px] ${
+                className={`font-helvetica font-[300] text-[16px] transition-colors duration-300 hover:text-gold-500 ${
                   pathname === "/sell-your-property"
                     ? "text-gold-500"
                     : isDarkPage && !scrolled
                     ? "text-white-500"
-                    : "text-gold-900"
-                } hover:text-gold-500 transition-colors duration-300`}
+                    : "text-black-500"
+                }`}
               >
-                SELL YOUR PROPERTY
+                Sell Your Property
               </Link>
               <Link
                 href="/contact"
-                className={`font-helvetica font-[300] text-[16px] ${
+                className={`font-helvetica font-[300] text-[16px] transition-colors duration-300 hover:text-gold-500 ${
                   pathname === "/contact"
                     ? "text-gold-500"
                     : isDarkPage && !scrolled
                     ? "text-white-500"
-                    : "text-gold-900"
-                } hover:text-gold-500 transition-colors duration-300`}
+                    : "text-black-500"
+                }`}
               >
-                CONTACT US
+                Contact
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="flex items-center gap-4">
-              <Link
-                href="/contact"
-                className="max-lg:hidden bg-gold-500 hover:bg-gold-400 text-white-500 font-helvetica font-[300] text-[14px] md:text-[16px] px-5 py-2 rounded transition-all duration-300"
-              >
-                Enquire Now
-              </Link>
+            <div className="lg:hidden">
               <button
-                className="lg:hidden flex flex-col justify-center items-center gap-1.5"
-                onClick={() => setMobileMenuOpen((prev) => !prev)}
-                aria-label="Toggle menu"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className={`w-8 h-8 flex flex-col justify-center items-center ${
+                  isDarkPage && !scrolled ? "text-white-500" : "text-black-500"
+                }`}
               >
                 <span
-                  className={`block w-6 h-0.5 ${
+                  className={`block w-6 h-0.5 transition-all duration-300 ${
                     isDarkPage && !scrolled ? "bg-white-500" : "bg-black-500"
-                  } transition-transform duration-300 ${
-                    mobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                  } ${
+                    mobileMenuOpen
+                      ? "rotate-45 translate-y-1.5"
+                      : "rotate-0 translate-y-0"
                   }`}
-                ></span>
+                />
                 <span
-                  className={`block w-6 h-0.5 ${
+                  className={`block w-6 h-0.5 mt-1.5 transition-all duration-300 ${
                     isDarkPage && !scrolled ? "bg-white-500" : "bg-black-500"
-                  } transition-opacity duration-300 ${
-                    mobileMenuOpen ? "opacity-0" : "opacity-100"
-                  }`}
-                ></span>
+                  } ${mobileMenuOpen ? "opacity-0" : "opacity-100"}`}
+                />
                 <span
-                  className={`block w-6 h-0.5 ${
+                  className={`block w-6 h-0.5 mt-1.5 transition-all duration-300 ${
                     isDarkPage && !scrolled ? "bg-white-500" : "bg-black-500"
-                  } transition-transform duration-300 ${
-                    mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                  } ${
+                    mobileMenuOpen
+                      ? "-rotate-45 -translate-y-1.5"
+                      : "rotate-0 translate-y-0"
                   }`}
-                ></span>
+                />
               </button>
             </div>
           </div>
         </div>
       </nav>
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div
-          ref={menuRef}
-          className="fixed inset-0 bg-white-500 z-40 pt-[80px] px-6 py-10 flex flex-col items-center justify-center lg:hidden animate-fadeIn"
-        >
-          <div className="flex flex-col items-center gap-8 w-full max-w-xs">
+
+      {/* Mobile Menu */}
+      <div
+        ref={menuRef}
+        className={`fixed top-[96px] left-0 w-full bg-white-500 z-40 transition-all duration-300 lg:hidden ${
+          mobileMenuOpen
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-full pointer-events-none"
+        }`}
+      >
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col gap-6">
             <Link
               href="/"
-              className={`font-helvetica font-[300] text-[20px] ${
+              onClick={() => setMobileMenuOpen(false)}
+              className={`font-helvetica font-[300] text-[18px] transition-colors duration-300 ${
                 pathname === "/" ? "text-gold-500" : "text-black-500"
-              } transition-all duration-300 transform hover:scale-105`}
-              onClick={() => setMobileMenuOpen(false)}
+              }`}
             >
-              HOME
-            </Link>
-            <Link
-              href="/listings"
-              className={`font-helvetica font-[300] text-[20px] ${
-                pathname === "/listings" ? "text-gold-500" : "text-black-500"
-              } transition-all duration-300 transform hover:scale-105`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              LISTINGS
+              Home
             </Link>
             <Link
               href="/history"
-              className={`font-helvetica font-[300] text-[20px] ${
-                pathname === "/history" ? "text-gold-500" : "text-black-500"
-              } transition-all duration-300 transform hover:scale-105`}
               onClick={() => setMobileMenuOpen(false)}
+              className={`font-helvetica font-[300] text-[18px] transition-colors duration-300 ${
+                pathname === "/history" ? "text-gold-500" : "text-black-500"
+              }`}
             >
-              HISTORY
+              About Us
             </Link>
             <Link
               href="/sell-your-property"
-              className={`font-helvetica font-[300] text-[20px] ${
+              onClick={() => setMobileMenuOpen(false)}
+              className={`font-helvetica font-[300] text-[18px] transition-colors duration-300 ${
                 pathname === "/sell-your-property"
                   ? "text-gold-500"
                   : "text-black-500"
-              } transition-all duration-300 transform hover:scale-105`}
-              onClick={() => setMobileMenuOpen(false)}
+              }`}
             >
-              SELL YOUR PROPERTY
+              Sell Your Property
             </Link>
             <Link
               href="/contact"
-              className={`font-helvetica font-[300] text-[20px] ${
+              onClick={() => setMobileMenuOpen(false)}
+              className={`font-helvetica font-[300] text-[18px] transition-colors duration-300 ${
                 pathname === "/contact" ? "text-gold-500" : "text-black-500"
-              } transition-all duration-300 transform hover:scale-105`}
-              onClick={() => setMobileMenuOpen(false)}
+              }`}
             >
-              CONTACT US
-            </Link>
-
-            <Link
-              href="/contact"
-              className="mt-8 bg-gold-500 hover:bg-gold-400 text-white-500 font-helvetica font-[300] text-[16px] px-8 py-3 rounded transition-all duration-300 w-full text-center"
-            >
-              Enquire Now
+              Contact
             </Link>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 };
 
-export default NavBar;
+export default NavBarAnimated;
