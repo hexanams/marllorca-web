@@ -23,7 +23,11 @@ const HomeFirstSectionAnimated = () => {
     if (typeof window === "undefined") return;
 
     const ctx = gsap.context(() => {
-      // Initial setup - hide all elements
+      // Initial setup - hide all elements including section
+      gsap.set(sectionRef.current, {
+        opacity: 0,
+      });
+      
       gsap.set(
         [
           heroTextRef.current,
@@ -38,7 +42,7 @@ const HomeFirstSectionAnimated = () => {
       );
 
       // Create entrance timeline
-      const entranceTl = gsap.timeline({ delay: 0.5 });
+      const entranceTl = gsap.timeline({ delay: 0.1 });
 
       entranceTl
         .to(heroTextRef.current, {

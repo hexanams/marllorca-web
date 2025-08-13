@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLoadingStore } from '@/stores/loadingStore';
 import LoadingScreen from './LoadingScreen';
 import HomeFirstSectionAnimated from './HomeFirstSectionAnimated';
 import HomeSecondSectionAnimated from './HomeSecondSectionAnimated';
@@ -17,11 +18,23 @@ if (typeof window !== 'undefined') {
 }
 
 const HomePageAnimated = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [assetsLoaded, setAssetsLoaded] = useState(false);
+  const { 
+    isLoading, 
+    assetsLoaded, 
+    hasInitialized, 
+    setIsLoading, 
+    setAssetsLoaded, 
+    setHasInitialized 
+  } = useLoadingStore();
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    // If already initialized, skip loading
+    if (hasInitialized) {
+      setIsLoading(false);
+      return;
+    }
 
     // Preload critical images
     const criticalImages = [
@@ -49,11 +62,12 @@ const HomePageAnimated = () => {
     const minLoadTime = setTimeout(() => {
       if (assetsLoaded) {
         setIsLoading(false);
+        setHasInitialized(true);
       }
     }, 2000);
 
     return () => clearTimeout(minLoadTime);
-  }, [assetsLoaded]);
+  }, [assetsLoaded, hasInitialized, setIsLoading, setAssetsLoaded, setHasInitialized]);
 
   useEffect(() => {
     if (assetsLoaded && !isLoading) {
@@ -71,6 +85,7 @@ const HomePageAnimated = () => {
   const handleLoadingComplete = () => {
     if (assetsLoaded) {
       setIsLoading(false);
+      setHasInitialized(true);
     }
   };
 
@@ -87,8 +102,6 @@ const HomePageAnimated = () => {
       <HomeForthSectionAnimated />
       <HomeFifthSectionAnimated />
       <HomeSixthSection />
-      
-      {/* Scroll Progress Indicator */}
       <ScrollProgressIndicator />
     </div>
   );
