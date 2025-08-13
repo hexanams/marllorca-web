@@ -100,26 +100,28 @@ const HomePageAnimated = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <LoadingScreen
-        assetsLoaded={assetsLoaded}
-        onComplete={handleLoadingComplete}
-      />
-    );
-  }
-
   return (
-    <div className="relative">
-      {/* Animated Sections */}
-      <HomeFirstSectionAnimated />
-      <HomeSecondSectionAnimated />
-      <HomeThirdSectionAnimated />
-      <HomeForthSectionAnimated />
-      <HomeFifthSectionAnimated />
-      <HomeSixthSection />
-      <ScrollProgressIndicator />
-    </div>
+    <>
+      {/* Always render content for asset loading */}
+      <div className={`relative ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        {/* Animated Sections */}
+        <HomeFirstSectionAnimated />
+        <HomeSecondSectionAnimated />
+        <HomeThirdSectionAnimated />
+        <HomeForthSectionAnimated />
+        <HomeFifthSectionAnimated />
+        <HomeSixthSection />
+        <ScrollProgressIndicator />
+      </div>
+      
+      {/* Show loading screen when loading */}
+      {isLoading && (
+        <LoadingScreen
+          assetsLoaded={assetsLoaded}
+          onComplete={handleLoadingComplete}
+        />
+      )}
+    </>
   );
 };
 

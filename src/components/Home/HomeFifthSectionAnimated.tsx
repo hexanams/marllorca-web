@@ -244,6 +244,7 @@ const HomeFifthSectionAnimated = () => {
             quality={60}
             height={1000}
             objectFit="cover"
+            priority
             className="w-full h-full object-cover"
           />
 
