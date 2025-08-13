@@ -45,8 +45,10 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({
         duration: 2.5,
         ease: "power2.inOut",
         transformOrigin: "left center",
-      })
-      .to([logoRef.current, textRef.current, progressRef.current], {
+      });
+
+    if (assetsLoaded) {
+      gsap.to([logoRef.current, textRef.current, progressRef.current], {
         opacity: 0,
         y: -50,
         duration: 0.8,
@@ -54,13 +56,6 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({
         ease: "power2.in",
       });
 
-    return () => {
-      tl.kill();
-    };
-  }, [onComplete, assetsLoaded]);
-
-  useEffect(() => {
-    if (assetsLoaded) {
       gsap.to(containerRef.current, {
         yPercent: -100,
         duration: 1.2,
@@ -70,7 +65,11 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({
         },
       });
     }
-  }, [assetsLoaded, onComplete]);
+
+    return () => {
+      tl.kill();
+    };
+  }, [onComplete, assetsLoaded]);
 
   return (
     <div

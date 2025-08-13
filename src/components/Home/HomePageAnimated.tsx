@@ -88,6 +88,8 @@ const HomePageAnimated = () => {
     }
   }, [isLoading, assetsLoaded]);
 
+  console.log("assetsLoaded", assetsLoaded);
+
   const handleLoadingComplete = () => {
     if (assetsLoaded) {
       setIsLoading(false);
