@@ -223,7 +223,7 @@ const HistoryFirstSectionAnimated = () => {
               width={1000}
               quality={60}
               height={1000}
-              priority={true}
+              priority
               style={{ objectFit: "cover" }}
               className="h-full object-cover"
             />

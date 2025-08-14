@@ -16,8 +16,9 @@ const WeCard = ({
           src={image}
           alt="background"
           width={1000}
-          quality={80}
+          quality={60}
           height={1000}
+          priority
           objectFit="cover"
           className="w-full h-full object-cover z-[1]"
         />
