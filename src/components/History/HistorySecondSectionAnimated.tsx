@@ -173,7 +173,7 @@ const HistorySecondSectionAnimated = () => {
             className="z-[1] w-[45%] h-full absolute right-[-90%] lg:right-[0px]"
           >
             <Image
-              src="/HistoryBackTwo.svg"
+              src="/images/historyBackTwo.png"
               alt="contact"
               width={1000}
               quality={60}

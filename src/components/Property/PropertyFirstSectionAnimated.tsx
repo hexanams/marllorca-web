@@ -156,11 +156,7 @@ const PropertyFirstSectionAnimated = () => {
 
       // Content scroll animation
       gsap.fromTo(
-        [
-          descriptionRef.current,
-          buttonRef.current,
-          subtitleRef.current,
-        ],
+        [descriptionRef.current, buttonRef.current, subtitleRef.current],
         {
           // Initial state set by entrance timeline
         },
@@ -226,7 +222,7 @@ const PropertyFirstSectionAnimated = () => {
             className="z-[1] w-[45%] h-full absolute left-[-90%] lg:left-[0px]"
           >
             <Image
-              src="/PropertyBack.svg"
+              src="/images/propertyBack.png"
               alt="contact"
               width={1000}
               quality={60}

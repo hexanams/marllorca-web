@@ -174,10 +174,10 @@ const HistoryFifthSectionAnimated = () => {
             className="z-[1] w-[45%] h-[80%] absolute right-[-90%] lg:right-[0px]"
           >
             <Image
-              src="/HistoryBackThree.svg"
+              src="/images/historyBackThree.png"
               alt="contact"
               width={1000}
-              quality={60}
+              quality={70}
               height={1000}
               priority
               style={{ objectFit: "fill" }}

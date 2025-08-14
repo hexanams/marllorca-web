@@ -218,10 +218,10 @@ const HistoryFirstSectionAnimated = () => {
             className="z-[1] w-[45%] h-full absolute left-[-90%] lg:left-[0px]"
           >
             <Image
-              src="/HistoryBack.svg"
-              alt="contact"
+              src="/images/historyBack.png"
+              alt="history first image"
               width={1000}
-              quality={60}
+              quality={70}
               height={1000}
               priority
               style={{ objectFit: "cover" }}

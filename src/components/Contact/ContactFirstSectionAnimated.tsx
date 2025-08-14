@@ -138,10 +138,7 @@ const ContactFirstSectionAnimated = () => {
 
       // Content scroll animation
       gsap.fromTo(
-        [
-          descriptionRef.current,
-          subtitleRef.current,
-        ],
+        [descriptionRef.current, subtitleRef.current],
         {
           // Initial state set by entrance timeline
         },
@@ -186,7 +183,7 @@ const ContactFirstSectionAnimated = () => {
             className="z-[1] w-[45%] h-full absolute left-[-90%] lg:left-[0px]"
           >
             <Image
-              src="/ContactBack.svg"
+              src="/images/Contact.png"
               alt="contact"
               width={1000}
               quality={60}
