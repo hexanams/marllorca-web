@@ -23,15 +23,15 @@ const HistoryPageAnimated = () => {
     setPageAssetsLoaded,
     setPageInitialized,
   } = useLoadingStore();
-  
-  const { isLoading, assetsLoaded, hasInitialized } = getPageState('history');
+
+  const { isLoading, assetsLoaded, hasInitialized } = getPageState("history");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     // If already initialized, skip loading
     if (hasInitialized) {
-      setPageLoading('history', false);
+      setPageLoading("history", false);
       return;
     }
 
@@ -41,21 +41,21 @@ const HistoryPageAnimated = () => {
     // Function to check if both conditions are met
     const checkLoadingComplete = () => {
       if (assetsReady && minTimeElapsed) {
-        setPageLoading('history', false);
-        setPageInitialized('history', true);
+        setPageLoading("history", false);
+        setPageInitialized("history", true);
       }
     };
 
     // Handle window load
     const handleWindowLoad = () => {
-      setPageAssetsLoaded('history', true);
+      setPageAssetsLoaded("history", true);
       assetsReady = true;
       checkLoadingComplete();
     };
 
     // Check if window is already loaded
     if (document.readyState === "complete") {
-      setPageAssetsLoaded('history', true);
+      setPageAssetsLoaded("history", true);
       assetsReady = true;
     } else {
       window.addEventListener("load", handleWindowLoad);
@@ -88,15 +88,19 @@ const HistoryPageAnimated = () => {
 
   const handleLoadingComplete = () => {
     if (assetsLoaded) {
-      setPageLoading('history', false);
-      setPageInitialized('history', true);
+      setPageLoading("history", false);
+      setPageInitialized("history", true);
     }
   };
 
   return (
     <>
       {/* Always render content for asset loading */}
-      <div className={`relative ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+      <div
+        className={`relative overflow-hidden bg-black-500 ${
+          isLoading ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+      >
         {/* Animated History Sections */}
         <HistoryFirstSectionAnimated />
         <HistorySecondSectionAnimated />
@@ -104,7 +108,7 @@ const HistoryPageAnimated = () => {
         <HistoryForthSectionAnimated />
         <HistoryFifthSectionAnimated />
       </div>
-      
+
       {/* Show loading screen when loading */}
       {isLoading && (
         <LoadingScreen

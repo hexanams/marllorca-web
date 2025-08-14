@@ -174,7 +174,7 @@ const ContactFirstSectionAnimated = () => {
   return (
     <div
       ref={sectionRef}
-      className="h-full h-screen w-full bg-[#fff] overflow-hidden bg-black-500"
+      className="h-full h-screen w-full overflow-hidden bg-black-500"
     >
       <div className="container h-full mx-auto px-4 relative">
         <div className="h-full w-full flex flex-row items-center justify-center">

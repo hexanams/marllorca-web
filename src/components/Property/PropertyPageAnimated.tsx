@@ -22,15 +22,15 @@ const PropertyPageAnimated = () => {
     setPageAssetsLoaded,
     setPageInitialized,
   } = useLoadingStore();
-  
-  const { isLoading, assetsLoaded, hasInitialized } = getPageState('property');
+
+  const { isLoading, assetsLoaded, hasInitialized } = getPageState("property");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     // If already initialized, skip loading
     if (hasInitialized) {
-      setPageLoading('property', false);
+      setPageLoading("property", false);
       return;
     }
 
@@ -40,21 +40,21 @@ const PropertyPageAnimated = () => {
     // Function to check if both conditions are met
     const checkLoadingComplete = () => {
       if (assetsReady && minTimeElapsed) {
-        setPageLoading('property', false);
-        setPageInitialized('property', true);
+        setPageLoading("property", false);
+        setPageInitialized("property", true);
       }
     };
 
     // Handle window load
     const handleWindowLoad = () => {
-      setPageAssetsLoaded('property', true);
+      setPageAssetsLoaded("property", true);
       assetsReady = true;
       checkLoadingComplete();
     };
 
     // Check if window is already loaded
     if (document.readyState === "complete") {
-      setPageAssetsLoaded('property', true);
+      setPageAssetsLoaded("property", true);
       assetsReady = true;
     } else {
       window.addEventListener("load", handleWindowLoad);
@@ -87,22 +87,26 @@ const PropertyPageAnimated = () => {
 
   const handleLoadingComplete = () => {
     if (assetsLoaded) {
-      setPageLoading('property', false);
-      setPageInitialized('property', true);
+      setPageLoading("property", false);
+      setPageInitialized("property", true);
     }
   };
 
   return (
     <>
       {/* Always render content for asset loading */}
-      <div className={`relative ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+      <div
+        className={`relative overflow-hidden bg-black-500 ${
+          isLoading ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+      >
         {/* Animated Property Sections */}
         <PropertyFirstSectionAnimated />
         <PropertySecondSectionAnimated />
         <PropertyThirdSectionAnimated />
         <HomeSixthSectionAnimated />
       </div>
-      
+
       {/* Show loading screen when loading */}
       {isLoading && (
         <LoadingScreen

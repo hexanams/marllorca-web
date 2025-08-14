@@ -165,7 +165,10 @@ const HistorySecondSectionAnimated = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="h-[700px] w-full overflow-hidden">
+    <div
+      ref={sectionRef}
+      className="h-[700px] bg-white-500 w-full overflow-hidden"
+    >
       <div className="container h-full mx-auto px-4">
         <div className="h-full w-full flex flex-row items-center justify-center relative">
           <div

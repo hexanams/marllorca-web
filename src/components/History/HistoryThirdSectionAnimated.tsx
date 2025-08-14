@@ -124,7 +124,7 @@ const HistoryThirdSectionAnimated = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="w-full">
+    <div ref={sectionRef} className="w-full bg-white-500">
       <div className="container h-full mx-auto px-4">
         <div className="h-full w-full relative py-[80px] flex flex-col gap-[40px] items-center justify-center">
           <h3

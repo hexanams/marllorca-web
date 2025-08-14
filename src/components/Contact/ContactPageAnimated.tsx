@@ -21,15 +21,15 @@ const ContactPageAnimated = () => {
     setPageAssetsLoaded,
     setPageInitialized,
   } = useLoadingStore();
-  
-  const { isLoading, assetsLoaded, hasInitialized } = getPageState('contact');
+
+  const { isLoading, assetsLoaded, hasInitialized } = getPageState("contact");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     // If already initialized, skip loading
     if (hasInitialized) {
-      setPageLoading('contact', false);
+      setPageLoading("contact", false);
       return;
     }
 
@@ -39,21 +39,21 @@ const ContactPageAnimated = () => {
     // Function to check if both conditions are met
     const checkLoadingComplete = () => {
       if (assetsReady && minTimeElapsed) {
-        setPageLoading('contact', false);
-        setPageInitialized('contact', true);
+        setPageLoading("contact", false);
+        setPageInitialized("contact", true);
       }
     };
 
     // Handle window load
     const handleWindowLoad = () => {
-      setPageAssetsLoaded('contact', true);
+      setPageAssetsLoaded("contact", true);
       assetsReady = true;
       checkLoadingComplete();
     };
 
     // Check if window is already loaded
     if (document.readyState === "complete") {
-      setPageAssetsLoaded('contact', true);
+      setPageAssetsLoaded("contact", true);
       assetsReady = true;
     } else {
       window.addEventListener("load", handleWindowLoad);
@@ -86,21 +86,25 @@ const ContactPageAnimated = () => {
 
   const handleLoadingComplete = () => {
     if (assetsLoaded) {
-      setPageLoading('contact', false);
-      setPageInitialized('contact', true);
+      setPageLoading("contact", false);
+      setPageInitialized("contact", true);
     }
   };
 
   return (
     <>
       {/* Always render content for asset loading */}
-      <div className={`relative ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+      <div
+        className={`relative overflow-hidden bg-black-500 ${
+          isLoading ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+      >
         {/* Animated Contact Sections */}
         <ContactFirstSectionAnimated />
         <ContactSecondSectionAnimated />
         <HomeSixthSectionAnimated />
       </div>
-      
+
       {/* Show loading screen when loading */}
       {isLoading && (
         <LoadingScreen
